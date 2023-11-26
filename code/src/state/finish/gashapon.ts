@@ -38,7 +38,7 @@ export class Gashapon {
     capsules.forEach((capsule) => {
       this.remainCapsule.push(capsule);
     });
-    this.state = GashaponMachineState.ready;
+    this.setState(GashaponMachineState.ready);
   }
 
   issueCapsule(): GashaponCapsule {

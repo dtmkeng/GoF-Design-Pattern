@@ -1,61 +1,19 @@
+import { CheesePizzaFactory } from './cheesePizzaFactory';
+import { ClassicPizzaFactory } from './classicPizzaFactory';
 import {
-  BreadType,
-  CheezeType,
-  Ingredient,
-  Pizza,
   PizzaSize,
   PizzaStyle,
   PizzaType,
 } from './pizza';
+import { SeafoodPizzaFactory } from './seafoodPizzaFactory';
 
 export class PizzaStore {
   orderPizza(style: PizzaStyle, type: PizzaType, size: PizzaSize) {
-    var pizza: Pizza = new Pizza();
-    if (type === PizzaType.Classic) {
-      pizza.type = type;
-      pizza.size = size;
-      if (style === PizzaStyle.Italian) {
-        pizza.bread = BreadType.Thin;
-      } else {
-        pizza.bread = BreadType.Thick;
-      }
-      pizza.cheese = CheezeType.Mozzarella;
-      pizza.ingredients = [Ingredient.Tomato, Ingredient.Basil];
-    } else if (type === PizzaType.Cheese) {
-      pizza.type = type;
-      pizza.size = size;
-      pizza.bread = BreadType.Thick;
-      pizza.cheese = CheezeType.Parmesan;
-      if (style === PizzaStyle.Italian) {
-        pizza.ingredients = [
-          Ingredient.Basil,
-          Ingredient.Olive,
-          Ingredient.Onion,
-        ];
-      } else {
-        pizza.ingredients = [
-          Ingredient.Tomato,
-          Ingredient.Basil,
-          Ingredient.Olive,
-          Ingredient.Onion,
-        ];
-      }
+    if (type === PizzaType.Cheese) {
+      return new CheesePizzaFactory().bakePizza(style, size);
     } else if (type === PizzaType.Seafood) {
-      pizza.type = type;
-      pizza.size = size;
-      if (style === PizzaStyle.Italian) {
-        pizza.bread = BreadType.Thin;
-      } else {
-        pizza.bread = BreadType.Thick;
-      }
-      pizza.cheese = CheezeType.Mozzarella;
-      pizza.ingredients = [
-        Ingredient.Tomato,
-        Ingredient.Onion,
-        Ingredient.Shrimp,
-        Ingredient.Tuna,
-      ];
+      return new SeafoodPizzaFactory().bakePizza(style, size);
     }
-    return pizza;
+    return new ClassicPizzaFactory().bakePizza(style, size);
   }
 }
